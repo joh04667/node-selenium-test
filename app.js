@@ -20,40 +20,42 @@ console.log(assert);
 console.log('\n', 'Beginning unit tests:');
 
 var driver = new webdriver.Builder()
-  // .withCapabilities(webdriver.Capabilities.chrome())
-  .forBrowser('chrome')
-  .build();
+    // .withCapabilities(webdriver.Capabilities.chrome())
+    .forBrowser('chrome')
+    .build();
 
 
 
 
 Test.describe('Connection', function() {
-  this.timeout(20000);
-  Test.it('Should connect to the URL', function() {
+    this.timeout(20000);
+    Test.it('Should connect to the URL', function() {
 
-    driver.get(process.env.TEST_URL).then(function() {
+        driver.get(process.env.TEST_URL).then(function() {
 
-      assert.equal(true, true);
+            assert.equal(true, true);
+        });
     });
-  });
 });
 
 Test.describe('Login Form', function() {
-  this.timeout(20000);
-  var loginForm = driver.findElement(By.css('form'));
-  var loginEmail = driver.findElement(By.id('UserEmail'));
-  var loginPassword = driver.findElement(By.id('UserPassword'));
+    this.timeout(20000);
 
-  Test.it('Should not accept blank credentials', function(){
-    loginEmail.sendKeys("");
-    loginPassword.sendKeys("");
-    loginForm.submit();
+    var loginForm = driver.findElement(By.css('form'));
+    var loginEmail = driver.findElement(By.id('UserEmail'));
+    var loginPassword = driver.findElement(By.id('UserPassword'));
 
-    var error = driver.wait(until.elementLocated(By.className("login-validation-error")));
-    var smallError = driver.findElement(By.id("dvUserEmailClientValidation"));
-    var errorText = smallError.findElement(By.css('span'))
-    console.log(errorText);
-    //TODO: getText() method does nothing? 
+    Test.it('Should not accept blank credentials', function() {
+        loginEmail.sendKeys("");
+        loginPassword.sendKeys("");
+        loginForm.submit();
 
-  });
+        var error = driver.wait(until.elementLocated(By.className("login-validation-error")));
+        var smallError = driver.findElement(By.id("dvUserEmailClientValidation"));
+        var errorText = smallError.findElement(By.css('span'));
+
+        console.log(errorText);
+        //TODO: getText() method does nothing?
+
+    });
 });
